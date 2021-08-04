@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CodePartner</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="/assets/images/logo-mini.png" />
+    <link rel="stylesheet" href="/src/js/lib/themes/default.css">
+    <link rel="stylesheet" href="/src/js/lib/themes/default.time.css">
+    <link rel="stylesheet" href="/src/js/lib/themes/default.date.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.0/slimselect.min.css">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R27B8TNKJ6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-R27B8TNKJ6');
+    </script>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <%- include('partials/_navbar'); -%>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_sidebar.html -->
+                <%- include('partials/_sidebar'); -%>
+                    <!-- partial -->
+                    <div class="main-panel">
+                        <%- include(page); -%>
+                            <!-- content-wrapper ends -->
+                            <!-- partial:partials/_footer.html -->
+                            <!-- partial -->
+                    </div>
+                    <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script>
+        // stringify the data passed from router to ejs (within the EJS template only)
+        var slots = JSON.parse('<%- JSON.stringify((!!locals.gigs)?gigs:"") %>')
+        var sessions = JSON.parse('<%- JSON.stringify((!!locals.sessions)?sessions:"") %>')
+        var pendingSessions = JSON.parse('<%- JSON.stringify((!!locals.pendingSessions)?pendingSessions:"") %>')
+        var momentTimezone = '<%- JSON.stringify(locals.momentTimezone?locals.momentTimezone:"") %>';
+        var moment = '<%- JSON.stringify(locals.moment?locals.moment:"")%>';
+        var userdata = JSON.parse('<%- JSON.stringify((!!locals.user)?user:"") %>')
+        var profile = JSON.parse('<%- JSON.stringify((!!locals.profile)?profile:"") %>')
+        var page = JSON.parse('<%- JSON.stringify((!!locals.page)?page:"") %>')
+        var quality = JSON.parse('<%- JSON.stringify((!!locals.quality)?quality:"") %>')
+        var userrating = JSON.parse('<%- JSON.stringify((!!locals.userrating)?userrating:"") %>')
+        var profilerating = JSON.parse('<%- JSON.stringify((!!locals.profilerating)?profilerating:"") %>')
+    </script>
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Custom js for this page -->
+
+    <script src="/assets/js/clipboard.min.js"></script>
+    <script>
+        var clipboard = new ClipboardJS('.copybtn');
+
+        clipboard.on('success', function(e) {
+            console.log(e);
+        });
+
+        clipboard.on('error', function(e) {
+            console.log(e);
+        });
+    </script>
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/JitSiMeeting.js"></script>
+    <script src="/assets/js/elementsModal.js"></script>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <script src="/src/js//lib/picker.js"></script>
+    <script src="/src/js//lib/picker.time.js"></script>
+    <script src="/src/js/lib/picker.date.js"></script>
+    <script src="/src/js//lib/legacy.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.23/moment-timezone-with-data-2012-2022.min.js"></script>
+    <script src="/assets/js/notification.js"></script>
+    <!-- End custom js for this page -->
+    <div class="loading">Loading&#8230;</div>
+</body>
+
+</html>

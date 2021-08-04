@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Awsom</title>
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" href="/assets/images/logo-mini.png" />
+    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <link rel="stylesheet" href="../../assets/css/elementsModal.css" />
+    <style>
+
+      @media (max-width: 768px) {
+        .test {
+        right:40px;
+        }
+      
+      }
+      </style>
+    <script>var i = 0;</script>
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="test col-lg-4 mx-auto">
+              <div class = "template-demo mt-8 mb-4">
+                <nav aria-label="breadcrumb" role="navigation">
+                <ol class="breadcrumb breadcrumb breadcrumb-custom bg-inverse-warning">
+                  <li class="breadcrumb-item"><a href="/sharegigs/<%= influencerid %>">Treats</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Place new order</li>
+                </ol>
+                </nav>
+              </div>
+              <div class="auth-form-light text-left p-5">
+                <h4>Place the order</h4>
+                <h6 class="font-weight-light">Please enter your details before the payment</h6>
+                <form class="pt-3" action="/charge" method="POST">
+                  <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="buyername" name = "buyername" onInput="toggleCheck();" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Email</label>
+                    <input type="email" class="form-control" id="buyeremail" name = "buyeremail" onInput="toggleCheck();" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Phone</label>
+                    <input type="text" class="form-control" id="buyerphone" name = "buyerphone" onInput="toggleCheck();" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="name">Describe your special request (if you have any)</label>
+                    <textarea name = "request "class="form-control" id="request" rows="4" onInput="toggleCheck();"></textarea>
+                  </div>
+                  <div class="form-check-inline">
+                    <input type="checkbox" id="tick" class="form-check-input" onClick="createAndToggleModal(i)" onChange="document.getElementById('terms').disabled = !this.checked;" disabled>
+                    <label for="confirmation" class="form-check-label"> Are you sure the information is correct </label>
+                  </div>
+                  <div id="startstate" class="demo">
+                    <!--<button type="button" style= "padding:8px;" class="btn btn-lg btn-gradient-primary width" onClick="createAndToggleModal(i)"> Place Order </button>-->
+                  <button type="button" name="terms" disabled id="terms" id = "hiddenbutton" style= "padding:8px;" class="btn btn-lg btn-gradient-primary width" onClick="window.elementsModal.toggleElementsModalVisibility();"> Place Order</i> </button>
+                  <!--<button type="button" class="btn btn1" name="terms" disabled id="terms">Receive</i></button>-->
+                  </div>
+                    <!-- <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="/">SIGN UP</a> -->
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/assets/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/assets/js/off-canvas.js"></script>
+    <script src="/assets/js/hoverable-collapse.js"></script>
+    <script src="/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/js/todolist.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../../assets/js/elementsModal.js"></script>
+    <!-- End custom js for this page -->
+    <script>
+       $('#buyername,#buyeremail,#buyerphone').keyup(function(){
+         if($('#buyername').val()===''||$('#buyeremail').val()===''||$('#buyerphone').val()===''){
+           //console.log("done")
+           $("#tick").prop( "disabled", true );
+         }else{
+           //console.log("notdone")
+           $("#tick").prop( "disabled", false );
+         }
+            // $('#buyername,#buyeremail,#buyerphone').each(function(){
+            //   if($(this).val() !=null && $(this).val() !='' && $(this).val() != undefined){
+            //     console.log($(this).val())
+            //     console.log("done")
+            //   }else{
+            //     console.log("notdone")
+            //   }   
+        });
+    </script>
+  </body>
+  <script>
+    function toggleCheck(){
+      document.getElementById('tick').checked = false
+      document.getElementById('terms').disabled = true
+    }
+
+    function createAndToggleModal(i){
+      if (i==0){
+        i = 5;
+        window.elementsModal.create({
+          // the modal demo will handle non-zero currencies automatically
+          // items sent into the server can calculate their amounts and send back to the client
+          items: [{ sku: "sku_1234", quantity: 1 , price: parseInt("<%= orderamount %>", 10)*100}],
+          // Supported currencies here https://stripe.com/docs/currencies#presentment-currencies
+          currency: "USD",
+          businessName: "<%= influencername %>",
+          productName: "<%= gigtitle %>",
+          customerEmail: document.getElementById("buyeremail").value,
+          customerName: document.getElementById("buyername").value,
+          customerPhone: document.getElementById("buyerphone").value,
+          specialRequest: document.getElementById("request").value,
+          gigid:"<%= gigid %>",
+          gigprice: "<%= gigprice %>"
+        });
+      }else{
+        window.elementsModal.toggleElementsModalVisibility();
+      }
+    }
+
+    // Remove the comment for this to automatically open the modal demo
+    // when the page is loaded
+    // window.elementsModal.toggleElementsModalVisibility();
+    </script>
+</html>

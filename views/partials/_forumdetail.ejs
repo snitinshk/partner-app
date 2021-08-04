@@ -1,0 +1,210 @@
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">Forum Details </h3>
+    </div>
+    <!-- Item Start -->
+    <div class="forum-detail-wrap">
+        <div class="forum-detail-top">
+            <div class="forum-list-info-wrap">
+
+                <div class="forum-list-info-profile-pic">
+                    <a href="<%= (!user._id.equals(postDetail.adminId))?'/viewprofile/'+postDetail.adminId:'javascript:void(0)' %>">
+                        <%if(!postDetail.adminPic){%>
+                            <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+                        <%}else{%>
+                            <img src='/upload/influencers/<%=postDetail.adminPic%>' class="rounded-circle">
+                        <%}%>
+                    </a>
+                </div>
+                <div class="forum-list-info-flag-wrap">
+                    <h4>
+                        <%= postDetail.admin %>
+                    </h4>
+                </div>
+            </div>
+            <div class="forum-list-content-wrap">
+                <div class="forum-list-title">
+                    <h4>
+                        <%= postDetail.title %>
+                    </h4>
+                </div>
+                <div class="forum-list-desc">
+                    <span><%= postDetail.description %>.</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-detial-bottom">
+            <div class="form-detial-action-wrap">
+                <div class="forum-detial-action-left">
+                    <a href="javascript:void(0)" class="btm-action-btn">
+                        <span class="mdi mdi-thumb-up <%= (postDetail.isUpvoted)?'success':'' %> upvotePostBtn"></span>
+                        <span class="upvotePostCount"><%= postDetail.upvotes %></span>
+                    </a>
+                    <a href="javascript:void(0)" class="btm-action-btn ">
+                        <span class="mdi mdi-thumb-down <%= (postDetail.isDownvoted)?'danger':'' %> downvotePostBtn"></span> 
+                        <span class="downvotePostCount"><%= postDetail.downvotes %></span>
+                    </a>
+                    <a href="javascript:void(0)" class="btm-action-btn">
+                        <span class="mdi mdi-comment no-cursor"></span>
+                        <span class="postCommentCount"><%= postDetail.totalComments %></span>
+                    </a>
+                    <a href="javascript:void(0)" class="btm-action-btn">
+                        <span data-isReported="<%= postDetail.isAlreadyReported %>" class="mdi mdi-flag reportPost"></span>
+                        <span class="postFlagCount"><%= postDetail.totalFlags %></span>
+                    <a>
+                </div>
+                <div class="forum-detial-action-right">
+                    <a href="javascript:void(0)" class="btm-action-btn no-cursor">
+                        <span class="mdi mdi-clock grey"></span> <%= helper.timeAgo(postDetail.createdAt) %>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--item end-->
+    <!--comment form start-->
+    <div class="comment-form-wrap">
+        <div class="forum-detail-wrap">
+            <div class="forum-detail-top">
+                <div class="forum-list-info-wrap">
+                    <div class="forum-list-info-profile-pic">
+
+                        <%if(!user.profilepic){%>
+                            <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+                            <%}else{%>
+                                <img src='/upload/influencers/<%=user.profilepic%>' class="rounded-circle">
+                                <%}%>
+
+                    </div>
+                    <div class="forum-list-info-flag-wrap">
+                        <h4>
+                            <%=user.firstname%>
+                                <%=user.lastname%>
+                        </h4>
+                    </div>
+                </div>
+                <div class="forum-list-content-wrap">
+                    <input type="hidden" name="postId" value="<%= postDetail._id %>">
+                    <textarea class="form-control" name="comment" placeholder="Place your comment here" rows="6"></textarea>
+                    <span class="error commentErr"></span>
+                </div>
+            </div>
+            <div class="form-detial-bottom ">
+                <div class="form-detial-action-wrap ">
+                    <div class="forum-detial-action-right ">
+                        <button class="btn btn-gradient-primary" id="postComment">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--comment form end-->
+    <div class="new-comment-available"></div>
+    <!--comments list start-->
+    <div class="comment-list-wrap">
+        <% userComments.forEach(function(comment){ %>
+            <!-- Item Start -->
+            <div data-comment-timestamp="<%= new Date(comment.createdAt).getTime() %>" class="comment-wrap forum-detail-wrap">
+                <div class="forum-detail-top ">
+                    <div class="forum-list-info-wrap ">
+                        <div class="forum-list-info-profile-pic ">
+                            <a href="<%= (!user._id.equals(comment.adminId))?'/viewprofile/'+comment.adminId:'javascript:void(0)' %>">
+                                <%if(!comment.adminPic){%>
+                                        <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+                                    <%}else{%>
+                                        <img src='/upload/influencers/<%=comment.adminPic%>' class="rounded-circle">
+                                    <%}%>
+                            </a>
+                        </div>
+                        <div class="forum-list-info-flag-wrap ">
+                            <h4>
+                                <%= comment.admin %>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="forum-list-content-wrap no-cursor">
+                        <div class="forum-list-desc">
+                            <span><%= comment.comment %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-detial-bottom ">
+                    <div class="form-detial-action-wrap ">
+                        <div class="forum-detial-action-left">
+                            <a href="javascript:void(0)" class="btm-action-btn">
+                                <span data-id="<%= comment._id %>" id="upvote-<%= comment._id %>" class="mdi mdi-thumb-up <%= (comment.isUpvoted)?'success':'' %> upvoteCommentBtn"></span>
+                                <span id="upvoteCount-<%= comment._id %>" class="upvoteCommentCount"><%= comment.upvotes %></span>
+                            </a>
+                            <a href="javascript:void(0)" class="btm-action-btn">
+                                <span data-id="<%= comment._id %>" id="downvote-<%= comment._id %>" class="mdi mdi-thumb-down <%= (comment.isDownvoted)?'danger':'' %> downvoteCommentBtn"></span>
+                                <span id="downvoteCount-<%= comment._id %>" class="downvoteCommentCount"><%= comment.downvotes %></span>
+                            </a>
+                            <a href="javascript:void(0)" class="btm-action-btn">
+                                <span data-id="<%= comment._id %>" data-isReported="<%= comment.isAlreadyReported %>" class="mdi mdi-flag reportComment"></span>
+                                <span id="flagCount-<%= comment._id %>"><%= comment.totalFlags %></span>
+                            </a>
+                        </div>
+                        <div class="forum-detial-action-right ">
+                            <a href="javascript:void(0) " class="btm-action-btn no-cursor ">
+                                <span class="mdi mdi-clock grey "></span>
+                                <%= helper.timeAgo(comment.createdAt) %>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item end-->
+            <% }) %>
+    </div>
+    <!--comments list end-->
+
+</div>
+<div class="modal fade" id="reportPostModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Post</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="reportPostReason" rows="4" placeholder="Reason for reporting"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id="reportPostBtn" class="btn btn-primary">Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="reportCommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Report Comment</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="reportCommentReason" rows="4" placeholder="Reason for reporting"></textarea>
+                <input type="hidden" id="reportedCommentId" value="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" id="reportCommentBtn" class="btn btn-primary">Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<script>
+    var userId = '<%= user._id %>';
+</script>
+<script src="/assets/js/forum-detail.js"></script>
+<script src="/assets/js/realtime-feed-detail.js"></script>

@@ -1,0 +1,46 @@
+
+
+<div class="col-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <div class = "template-demo mt-8 mb-4">
+        <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+          <li class="breadcrumb-item"><a href="/gigs">Find a Partner</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Add a new timeslot</li>
+        </ol>
+        </nav>
+      </div>
+      <h4 class="card-title">Add a timeslot</h4>
+      <p class="card-description"> You can add your timeslot here and let it be avaiable to the world!</p>
+      <form class="forms-sample" method = "post" action="/newgigform">
+        <div class="form-group">
+          <label for="exampleInputCity1">Pick the Date</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-gradient-primary text-white"><i class="mdi mdi-calendar-clock"></i></span>
+            </div>
+            <input id = "datepicker2" name='date' class="form-control" required>
+          </div>
+          <div class="form-group" style = "margin-top: 20px">
+              <label for="exampleInputCity1">Pick the Start Time (Session time is 1 hour)</label>
+              <div class="placeholdertexttwo">    
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-gradient-primary text-white"><i class="mdi mdi-clock-fast"></i></span>
+                </div>
+                <input id = "datepicker" name='time'  class="form-control" required> 
+          </div> 
+          <div class = "sendtimezone">
+          </div>   
+        <% if (message){ %>
+          <p class="card-description"><%= message %></p>
+          <% }else{ %>
+          <button style = "margin-top: 20px;" type = "submit" class="btn btn-gradient-primary mr-2">Submit</button>
+          <button style = "margin-top: 20px;" type = "button" onclick = "location.href = '/gigs';" class="btn btn-light" formnovalidate>Cancel</button>        
+        <% } %>
+        </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class = "template-demo mt-8 mb-4">
+          <nav aria-label="breadcrumb" role="navigation">
+          <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+            <li class="breadcrumb-item"><a href="/gigs">Your Treats</a></li>
+            <li class="breadcrumb-item"><a href="/orders/<%=order.gigid%>">Orders</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Order Info</li>
+          </ol>
+          </nav>
+        </div>
+        <h4 class="card-title">Order Information</h4>
+        <p class="card-description">Find the details of the order here</p>
+        <form class="forms-sample">
+          <div class="form-group">
+            <label for="exampleInputCity1">Order ID</label>
+            <p class="card-description"><%= order.id %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Fan Name</label>
+            <p class="card-description"><%= order.buyername %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail3">Fan Email address</label>
+            <p class="card-description"><%= order.buyeremail %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Price</label>
+            <p class="card-description">$<%= order.price %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Order Date</label>
+            <p class="card-description"><%= moment(order.created).format('hh:mm A, DD MMMM YYYY') %> GMT +0000</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea1">Request from the fan</label>
+            <% if (order.specialrequest){ %>
+            <p class="card-description"><%- order.specialrequest.replace(/\&+/g, "&amp;").replace(/\<+/g, "&lt;").replace(/\>+/g, "&gt;").replace(/\"+/g, "&quot;").replace(/\'+/g, "&#39;").replace(/\n+/g, "<br>")%></p>
+            <% }else{ %>
+            <p class="card-description">-----</p>
+            <% } %>
+          </div>
+          <%if (order.status == "inprogress") { %>
+          <!-- <a href="/uploadorder/<%=order.id%>">Submit Order</a> -->
+          <button onclick = "location.href = '/uploadorder/<%=order.id%>';" type ="button" style="padding:10px;"; class="btn btn-gradient-primary mr-2">Fulfill Order</button>
+          <% } %>
+          <%if (order.status == "new") { %>
+          <button onclick="areYouSureAcceptinDetailPage('<%=JSON.stringify(order)%>')" id="acceptbutton" type="button" style= "padding:10px;" class="btn btn-gradient-primary mr-2">Accept</button>
+          <% } %>
+          <%if (order.status == "new" || order.status == "inprogress") { %>
+          <button onclick="areYouSureRejectinDetailPage('<%=JSON.stringify(order)%>')" id="rejectbutton" type="button" style= "padding:10px;" class="btn btn-light">Reject</button>
+          <% } %>
+          <%if (order.status == "completed") { %>
+            <div class="form-group">
+              <label for="exampleTextarea1">Completed Order Details</label>
+              <% if (order.completedOrder){ %>
+              <p class="card-description"><%- order.completedOrder.replace(/\&+/g, "&amp;").replace(/\<+/g, "&lt;").replace(/\>+/g, "&gt;").replace(/\"+/g, "&quot;").replace(/\'+/g, "&#39;").replace(/\n+/g, "<br>")%></p>
+              <label for="exampleTextarea1">Completed Order Time</label>
+              <p class="card-description"><%= moment(order.completedOrderTime).format('hh:mm A, DD MMMM YYYY')%> GMT +0000</p>
+              <% }else{ %>
+              <p class="card-description">-----</p>
+              <% } %>
+            </div>
+          <% } %>
+        </form>
+      </div>
+    </div>
+  </div>

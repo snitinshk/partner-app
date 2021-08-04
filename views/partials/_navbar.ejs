@@ -1,0 +1,83 @@
+<style>
+    @media (max-width: 768px) {
+        .btn {
+            padding: 4px;
+        }
+    }
+</style>
+
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="/gigs"><img style="height:60px;width:190px" src="/assets/images/logo.png" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="/gigs"><img style="height:40px;width:50px" src="/assets/images/logo-mini.png" alt="logo" /></a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+      <span class="mdi mdi-menu"></span>
+    </button>
+        <ul class="navbar-nav navbar-nav-right">
+            <%if(page!="partials/_profile"&&page!="partials/_viewprofile"&&page!="partials/_video"){%>
+                <!-- <button class="btn btn-primary" data-toggle="dropdown">Shareable Link</button> -->
+                <!-- <a href="/forum/add-post" class="btn btn-primary">Start New Topic</a> -->
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" style="position: relative;z-index:100">
+                        <input id="foo" value="https://www.awsom.me/sharegigs/<%=user._id%>">
+                        <button class="copybtn btn-primary btn-icon" data-clipboard-target="#foo">
+                            <i class="mdi mdi-content-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-bell-outline"></i>
+                        <!-- <span class="count-symbol bg-danger"></span> -->
+                        <span class="badge_header notification_count"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                        <h6 class="p-3 mb-0">Notifications</h6>
+                        <div class="notification-wraper">
+                        </div>
+                        <!-- <div class="dropdown-divider"></div>
+                        <h6 class="p-3 mb-0 text-center">See all notifications</h6> -->
+                    </div>
+                </li>
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-profile-img">
+                            <%if(!user.profilepic){%>
+                                <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+                                <%}else{%>
+                                    <img src='/upload/influencers/<%=user.profilepic%>' class="rounded-circle">
+                                    <%}%>
+                                        <span class="availability-status online"></span>
+                        </div>
+                        <div class="nav-profile-text">
+                            <p class="mb-1 text-black">
+                                <%=user.firstname%>
+                                    <%=user.lastname%>
+                            </p>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                        <%if(page=="partials/_orders"||page=="partials/_uploadorder"||page=="partials/_orderinfo"){%>
+                            <a class="dropdown-item" href="../profile">
+                                <%}else{%>
+                                    <a class="dropdown-item" style="position:relative;z-index:10" href="/profile">
+                                        <%}%>
+                                            <i class="mdi mdi-account mr-2 text-success"></i> Profile </a>
+                                    <div class="dropdown-divider"></div>
+                                    <%if(page=="partials/_orders"||page=="partials/_uploadorder"||page=="partials/_orderinfo"){%>
+                                        <a class="dropdown-item" href="../logout">
+                                            <%}else{%>
+                                                <a class="dropdown-item" href="/logout">
+                                                    <%}%>
+                                                        <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                    </div>
+                </li>
+                <%}%>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+      <span class="mdi mdi-menu"></span>
+    </button>
+    </div>
+</nav>

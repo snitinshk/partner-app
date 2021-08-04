@@ -1,0 +1,116 @@
+<!-- <div class="main-panel"> -->
+<style>
+  .tooltip {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+  <div class="content-wrapper">
+    <div class="card-body">
+      <h4 class="card-title">Find a Partner</h4>
+      <div class="border-bottom">
+      </div>
+        <div class="row" >
+          <div class ="col-md-3">
+            <div class="form-group row">
+            <a href="/newgigform"><button class="btn btn-lg btn-gradient-primary mt-4  mb-4 p-3">+ Add your timeslot</button></a>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group row">
+              <label for="exampleInputCity1">Start Time</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-gradient-primary text-white"><i class="mdi mdi-calendar-clock"></i></span>
+                </div>
+                <input id = "filterdate1"  class="form-control" name='startdate' style ="display:inline;"  required>
+            
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group row">
+              <label for="exampleInputCity1">End Time</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-gradient-primary text-white"><i class="mdi mdi-calendar-clock"></i></span>
+                </div>
+                <input id = "filterdate2"  class="form-control"name='endtime'required> 
+            </div>
+          </div>
+        
+        </div>
+        <div class="col-md-3">
+          <div class="form-group row">
+           <button type = "button" id ="filter" class="btn btn-gradient-primary mt-4 mb-5"">Filter</button>
+        </div>
+        </div>     
+      </div>
+
+      <div>
+        <p>In our last release, the session timezones were in "UTC +0", which caused confusion to some users</p>
+      </div>
+
+      <div class="placeholdertextone">
+     
+      </div>
+      
+      <div class="row" id = "cards">
+      <!-- <% gigs.forEach(gig => { %>
+      <div class="col-md-3 grid-margin stretch-card">
+        <div class="card">
+         
+          <div class="card-body text-center">
+            <div class="nav-profile-text">
+              <p class="mb-1 text-black"><%=gig.firstname%> <%=gig.lastname%></p>
+            </div>        
+            <h4 class="card-title textt"><%= gig.videoDate %></h4>
+            <p class="card-description textt"><%= gig.videoTime %></p>
+            <div>
+            <button onclick="window.location = '/viewprofile/<%=gig.userWhoMadeVideo%>';" style="padding:8px;" type="button" class="btn btn-lg btn-gradient-primary">View Profile</button>
+            <button onclick="window.location = '/orders/<%=gig.id%>';" style="padding:8px;" type="button" class="btn btn-lg btn-gradient-primary">Book</button>
+            <button onclick="window.location = '/orders/<%=gig.id%>';" style="padding:8px;" type="button" class="btn btn-lg btn-gradient-primary">View Profile</button>
+            <button onclick="areYouSureBookSession('<%=JSON.stringify(gig)%>')" style="padding:8px;" type="button" class="btn btn-lg btn-gradient-primary">Book</button>
+          </div>
+          </div>
+        </div>
+      </div>
+        <% }) %> -->
+      </div>
+      <!-- </form> -->
+  </div>
+</div>

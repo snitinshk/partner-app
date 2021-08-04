@@ -1,0 +1,151 @@
+<div class="content-top-header">
+    <form method="GET">
+        <div class="row">
+            <div class="col-lg-2 col-sm-6 col-6">
+                <div class="filter-input-group">
+                    <select class="form-control" name="caegoryType" id="category">
+                        <option value="">Category</option>
+                        <% categories.forEach(function(category){ %>
+                            <option <%= (filter.caegoryType == category._id)?'selected':'' %> value="<%= category._id %>"><%= category.categoryName %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-6">
+                <div class="filter-input-group">
+                    <select class="form-control" name="subCategoryType" id="subCategory">
+                        <option value="">Subcategory</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12">
+                <div class="filter-input-group">
+                    <div class="input-group search">
+                        <div class="input-group-prepend bg-transparent">
+                            <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                        </div>
+                        <input type="text" value="<%= filter.search %>" name="search" class="form-control bg-transparent border-0" placeholder="Search forum">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-sm-6 col-6">
+                <!-- <input type="submit" class="form-control btn-md btn btn-primary" value="Filter Post"> -->
+                <div class="filter-input-group no-margin">
+                    <button type="submit" class="btn btn-gradient-primary btn-rounded btn-icon">
+                        <i class="mdi mdi-filter"></i>
+                      </button>
+                    <button type="button" class="btn btn-gradient-light btn-rounded btn-icon clear-filter-btn">
+                        <i class="mdi mdi-filter-remove"></i>
+                      </button>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-6">
+                <div class="filter-input-group no-margin text-right">
+                    <a href="/forum/add-post" class="btn btn-md btn-primary">Start New Topic</a>
+                </div>
+            </div>
+    </form>
+    </div>
+</div>
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title">Forum </h3>
+    </div>
+    <div class="new-post-available"></div>
+    <!-- Item Start -->
+    <div class="forum-post">
+        <% allPost.forEach(function(post){ %>
+            <div data-post-timestamp="<%= new Date(post.createdAt).getTime() %>" class="forum-detail-wrap">
+                <div class="forum-detail-top">
+                    <div class="forum-list-info-wrap">
+                        <div class="forum-list-info-profile-pic">
+                            <a href="<%= (!user._id.equals(post.adminId))?'/viewprofile/'+post.adminId:'javascript:void(0)' %>">
+                                <%if(!post.adminPic){%>
+                                    <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+                                    <%}else{%>
+                                        <img src='/upload/influencers/<%=post.adminPic%>' class="rounded-circle">
+                                        <%}%>
+                            </a>
+                        </div>
+
+                        <div class="forum-list-info-flag-wrap">
+                            <h4>
+                                <%= post.admin %>
+                            </h4>
+                        </div>
+                        <!-- <div class="forum-list-info-flag-wrap">
+                            <span><span class="mdi mdi-flag cursor-pointer"></span>0</span>
+                        </div> -->
+                    </div>
+                    <div class="forum-list-content-wrap">
+                        <div class="forum-list-title">
+                            <h4>
+                                <a href="/forum/post-detail/<%= post._id %>">
+                                    <%= post.title %>
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="forum-list-desc for-list">
+                            <span><%= post.description %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-detial-bottom">
+                    <div class="form-detial-action-wrap">
+                        <div class="forum-detial-action-left">
+                            <a href="javascript:void(0)" class="btm-action-btn no-cursor">
+                                <span class="mdi mdi-thumb-up success "></span>
+                                <span class="upvotePostCount-<%= post._id %>"><%= post.upvotes %></span>
+                            </a>
+                            <a href="javascript:void(0)" class="btm-action-btn no-cursor">
+                                <span class="mdi mdi-thumb-down danger"></span>
+                                <span class="downvotePostCount-<%= post._id %>"><%= post.downvotes %></span>
+                            </a>
+                            <a href="javascript:void(0)" class="btm-action-btn no-cursor">
+                                <span class="mdi mdi-comment upvotePostBtn"></span>
+                                <span class="postComments-<%= post._id %>"><%= post.totalComments %></span>
+                            </a>
+                            <a href="javascript:void(0)" class="btm-action-btn flag-btn no-cursor">
+                                <span class="mdi mdi-flag upvotePostBtn"></span>
+                                <span class="postFlagCount-<%= post._id %>"><%= post.totalFlags %></span>
+                            </a>
+                        </div>
+                        <div class="forum-detial-action-right">
+                            <a href="javascript:void(0)" class="btm-action-btn no-cursor">
+                                <span class="mdi mdi-clock grey"></span>
+                                <%= helper.timeAgo(post.createdAt) %>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+    <div class="feed-end-wrapper"></div>
+    <% if(totalPost == 0) { %>
+    <div class="no-feed-wrapper">
+        <div class="no-feed">
+            <span>No matching feeds found</span>
+       </div>
+    </div>
+    <% } %>
+    <!--item end-->
+</div>
+<script>
+    var selectedSubCat = '<%= filter.subCategoryType %>';
+    var userId = '<%= user._id %>';
+    var totalPost = '<%= totalPost %>';
+</script>
+<script src="/assets/js/forum-list.js"></script>
+<script src="/assets/js/realtime-feed.js"></script>
+<script>
+    $(function() {
+        $('.forum-list-desc').each(function(index, value) {
+            const _a = $(this).outerHeight();
+            const _b = $(this).find('span').outerHeight();
+            if (_b > _a) {
+                $(this).addClass('text-ecllipsed')
+            }
+        })
+    });
+</script>

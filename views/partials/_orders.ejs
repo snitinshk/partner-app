@@ -1,0 +1,141 @@
+<div class="col-lg-12 grid-margin stretch-card" style="overflow:auto">
+    <div class="card">
+      <div class="card-body">
+        <div class = "template-demo mt-8 mb-4">
+          <nav aria-label="breadcrumb" role="navigation">
+          <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+            <li class="breadcrumb-item"><a href="/gigs">Your Treats</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Orders</li>
+          </ol>
+          </nav>
+        </div>
+        <h4 class="card-title">Treat Name: <%= gigName %></h4>
+        <!-- <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown">Filter</button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item">Completed</a>
+              <a class="dropdown-item">In Progress</a>
+              <a class="dropdown-item">New</a>
+            </div>
+          </div> -->
+          <select onInput="orderFunction()" class="btn btn-outline-primary dropdown-toggle mt-4 mb-8" style="padding:8px" id="orderDropdown">
+            <option selected="selected" value="new">New Orders</option>
+            <option value="inprogress">In Progress Orders</option>
+            <option value="completed">Completed Orders</option>
+            <option value="rejected">Rejected Orders</option>
+          </select>
+        <table id = "newtable" class="table table-striped" style = "display: table">
+          <thead>
+            <tr>
+              <th> Fan Name </th>
+              <th> Progress </th>
+              <th> Amount </th>
+              <th> Order Date </th>
+              <th> Accept</th>
+              <th> Reject</th>
+              <th> More Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%if(neworders.length==0){%>
+              <tr>               
+                  <td align="center" style="text-align:center;" width="600" colspan="7">No Records to Display</td>             
+              </tr>
+             <%}%>
+            <% neworders.forEach(order => { %>
+            <tr>
+              <td><%= order.buyeremail %></td>
+              <td><label class="badge badge-info">New</label></td>
+              <td><%= order.price %></td>
+              <td><%= moment(order.created).format('hh:mm A, DD MMMM YYYY'); %> GMT +0000</td>
+              <td><button onclick="areYouSureAccept('<%=JSON.stringify(order)%>')" id="acceptbutton" type="button" style= "padding:8px;" class="btn btn-outline-primary">Accept</button> </td>
+              <td><button onclick="areYouSureReject('<%=JSON.stringify(order)%>')" id="rejectbutton" type="button" style= "padding:8px;" class="btn btn-outline-primary">Reject</button> </td>
+              <td><button onclick="window.location = '/orderinfo/<%=order.id%>';" type="button" style= "padding:8px;" class="btn btn-outline-primary">More Info</button></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <table id = "completedtable" class="table table-striped" style = "display: none;">
+          <thead>
+            <tr>        
+              <th> Fan Name </th>
+              <th> Progress </th>
+              <th> Amount </th>
+              <th> Order Date </th>
+              <th> More Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%if(completedorders.length==0){%>
+              <tr>
+                  <td align="center" style="text-align:center;" width="600" colspan="7">No Records to Display</td>
+              </tr>
+             <%}%>
+            <% completedorders.forEach(completedorders => { %>
+            <tr>
+              <td><%= completedorders.buyeremail %></td>
+              <td><label class="badge badge-success">Completed</label></td>
+              <td><%= completedorders.price %></td>
+              <td><%= moment(completedorders.created).format('hh:mm A, DD MMMM YYYY'); %> GMT +0000</td>
+              <td><button onclick="window.location = '/orderinfo/<%=completedorders.id%>';" type="button" style= "padding:8px;" class="btn btn-outline-primary">More Info</button></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <table id = "inprogresstable" class="table table-striped" style = "display: none;">
+          <thead>
+            <tr>        
+              <th> Fan Name </th>
+              <th> Progress </th>
+              <th> Amount </th>
+              <th> Order Date </th>
+              <th> Fulfill Order </th>
+              <th> More info </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%if(progressorders.length==0){%>
+              <tr>              
+                  <td align="center" style="text-align:center;" width="600" colspan="7">No Records to Display</td>    
+              </tr>
+             <%}%>
+            <% progressorders.forEach(progressorders => { %>
+            <tr>
+              <td><%= progressorders.buyeremail %></td>
+              <td><label class="badge badge-warning">In Progress</label></td>
+              <td><%= progressorders.price %></td>
+              <td><%= moment(progressorders.created).format('hh:mm A, DD MMMM YYYY'); %> GMT +0000</td>
+              <td><button onclick = "window.location = '/uploadorder/<%=progressorders.id%>';" type="button" style= "padding:8px;" class="btn btn-outline-primary">Submit</button></td>
+              <td><button onclick="window.location = '/orderinfo/<%=progressorders.id%>';" type="button" style= "padding:8px;" class="btn btn-outline-primary">More Info</button></td>
+            </tr>  
+            <% }) %> 
+          </tbody>
+        </table>
+        <table id = "rejectedtable" class="table table-striped" style = "display: none;">
+          <thead>
+            <tr>        
+              <th> Fan Name </th>
+              <th> Progress </th>
+              <th> Amount </th>
+              <th> Order Date </th>
+            </tr>
+          </thead>
+          <tbody>
+            <%if(rejectedorders.length==0){%>
+              <tr>     
+                  <td align="center" style="text-align:center;" width="600" colspan="7">No Records to Display</td>               
+              </tr>
+             <%}%>
+            <% rejectedorders.forEach(rejectedorders => { %>
+            <tr>
+              <td><%= rejectedorders.buyeremail %></td>
+              <td><label class="badge badge-warning">Rejected</label></td>
+              <td><%= rejectedorders.price %></td>
+              <td><%= moment(rejectedorders.created).format('hh:mm A, DD MMMM YYYY'); %> GMT +0000</td>
+            </tr>  
+            <% }) %> 
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

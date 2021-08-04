@@ -1,0 +1,84 @@
+<div class="content-wrapper">       
+    <div class="page-header">
+      <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+          <i class="mdi mdi-home"></i>
+        </span> Dashboard
+      </h3>
+    </div>
+    <div class="row">
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-danger card-img-holder text-white">
+          <div class="card-body">
+            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+            <h4 class="font-weight-normal mb-3">Pending Orders <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5"><%=pendingorders%></h2>
+            <h6 class="card-text">Accepted but not fulfilled yet</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-info card-img-holder text-white">
+          <div class="card-body">
+            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+            <h4 class="font-weight-normal mb-3">All Orders<i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5"><%=totalorders%></h2>
+            <h6 class="card-text">All orders till now</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-success card-img-holder text-white">
+          <div class="card-body">
+            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+            <h4 class="font-weight-normal mb-3">Revenue <i class="mdi mdi-diamond mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5">$<%=totalrevenue%></h2>
+            <h6 class="card-text">Money you have made till now</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Recent Orders</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>                   
+                      <th> Fan Name </th>
+                      <th> Progress </th>
+                      <th> Amount </th>
+                      <th> Order Date </th>
+                      <th> More Info</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% latestorders.forEach(order => { %>
+                    <tr>
+                      <td><%= order.buyeremail %></td>
+                      <%if(order.status=="new"){%>
+                      <td><label class="badge badge-info">New</label></td>
+                      <%}else if(order.status=="inprogress"){%>
+                        <td><label class="badge badge-warning">In Progress</label></td> 
+                      <%}else {%> 
+                        <td><label class="badge badge-success">Completed</label></td> 
+                        <%}%> 
+                      <td>$<%= order.price %></td>
+                      <td><%= moment(order.created).format('hh:mm A, DD MMMM YYYY'); %> GMT +0000 </td>
+                      <td><button onclick="window.location = '/orderinfo/<%=order.id%>';" type="button" style= "padding:8px;" class="btn btn-outline-primary">More Info</button></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

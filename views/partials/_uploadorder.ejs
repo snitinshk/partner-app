@@ -1,0 +1,54 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class = "template-demo mt-8 mb-4">
+          <nav aria-label="breadcrumb" role="navigation">
+          <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+            <li class="breadcrumb-item"><a href="/gigs">Your Treats</a></li>
+            <li class="breadcrumb-item"><a href="/orders/<%=order.gigid%>">Orders</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Fulfill Order</li>
+          </ol>
+          </nav>
+        </div>
+        <h4 class="card-title">Fulfill the order</h4>
+        <!-- <form class="forms-sample" method = "post" action="/uploadorder/<%= order.id %>"> -->
+        <form class="forms-sample" onsubmit="areYouSureSubmit('<%=JSON.stringify(order)%>', this.completeOrder.value);">
+            <!-- <input type="file" id="myFile" name="filename"> -->
+          <div class="form-group">
+            <label for="exampleInputCity1">Order ID</label>
+            <p class="card-description"><%= order.id %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputName1">Fan Name</label>
+            <p class="card-description"><%= order.buyername %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail3">Fan Email address</label>
+            <p class="card-description"><%= order.buyeremail %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Price</label>
+            <p class="card-description">$<%= order.price %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Order Date</label>
+            <p class="card-description"><%= moment(order.created).format('hh:mm A, DD MMMM YYYY') %> GMT +0000</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea1">Request from the fan</label>
+            <% if (order.specialrequest){ %>
+            <p class="card-description"><%= order.specialrequest.replace(/\&+/g, "&amp;").replace(/\<+/g, "&lt;").replace(/\>+/g, "&gt;").replace(/\"+/g, "&quot;").replace(/\'+/g, "&#39;").replace(/\n+/g, "<br>")%></p>
+            <% }else{ %>
+            <p class="card-description">-----</p>
+            <% } %>
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea1">Message to the fan</label>
+            <p class="card-description">Please upload the video/content to Google Drive or other platfrom and share the link with a personal message to your fan</p>
+            <textarea class="form-control"  id="completeOrder" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-gradient-primary mr-2">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,81 @@
+<div class="content-wrapper">
+    <div class="page-header">
+        <h3 class="page-title"> Add new forum </h3>
+        <!-- <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Form elements</li>
+                </ol>
+            </nav> -->
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-xs-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h4 class="card-title">Basic form elements</h4>                   -->
+                    <div class="forum-user-picture">
+                        <%if(!user.profilepic){%>
+                            <img src="../assets/images/defaultprofilepic.png" class="rounded-circle">
+                        <%}else{%>
+                            <img src='/upload/influencers/<%=user.profilepic%>' class="rounded-circle">
+                        <%}%>
+                    </div>
+                    <div class="forum-user-name text-center">
+                        <h4 class="card-title"><%=user.firstname%> <%=user.lastname%></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-xs-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <form class="forms-sample" method="post" action="/forum/add-post">
+                        <div class="form-group">
+                            <label for="exampleInputName1">Topic Title</label>
+                            <input type="text" name="title" required class="form-control" id="exampleInputName1" placeholder="Enter Topic Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select class="form-control" required name="category" id="category">
+                                <option value="">Select Category</option>
+                                <% categories.forEach(function(category){ %>
+                                    <option value="<%= category._id %>"><%= category.categoryName %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subCategory">Sub Category</label>
+                            <select class="form-control" required name="subCategory" id="subCategory">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleTextarea1">Topic Description</label>
+                            <textarea class="form-control" required name="description" id="exampleTextarea1" rows="4"></textarea>
+                        </div>
+                        <div class="form-group text-right">
+                            <input type="submit" value="Post" class="btn btn-gradient-primary mr-2">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        $('#category').change(function(){
+            var categoryId = $(this).val();
+            $.get( "/get-subcategory/"+categoryId).done(function( respData ) {
+                var option = $('<option></option>').attr("value","").text("Select Subcategory");
+                $("#subCategory").empty().append(option);
+                respData[0].subCategory.forEach(subcategory => {
+                    var option = $('<option></option>').attr("value", subcategory._id).text(subcategory.subCategoryName);
+                    $("#subCategory").append(option);
+                });
+            });
+        })
+    })
+
+</script>

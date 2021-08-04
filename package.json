@@ -1,0 +1,33 @@
+{
+  "name": "loyalfans",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "author": "Llychee",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "mongoose": "^5.11.14",
+    "multer": "^1.4.2",
+    "node-mailjet": "^3.3.1",
+    "nodemailer": "^6.6.0",
+    "nodemon": "^2.0.7",
+    "stripe": "^8.134.0",
+    "sweetalert": "^2.1.2"
+  }
+}

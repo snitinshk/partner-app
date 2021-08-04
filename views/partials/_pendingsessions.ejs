@@ -1,0 +1,47 @@
+<!-- <div class="main-panel"> -->
+    <div class="content-wrapper">
+        <div class="card-body">
+          <h4 class="card-title">Pending Sessions</h4>
+          <div class="border-bottom"></div>
+          <div class="placeholdertextthree">
+          </div>
+          <div>
+              <p>Your confirmed sessions will show up in the <b>"Upcoming Sessions"</b> tab</p>
+          </div>
+          <div id = "pendingCardsSession">
+          <!-- <% pendingSessions.forEach(gig => { %>
+              <div class="col-md-3 grid-margin stretch-card">
+                <div class="card">
+                 <% if (user.id == gig.userWhoJoinVideo){ %>
+                  <div class="card-body text-center">
+                    <div class="nav-profile-text">
+                      <p class="mb-1 text-black"><%=gig.userWhoMadeVideoFirstName%> <%=gig.userWhoMadeVideoLastName%></p>
+                    </div>        
+                    <h4 class="card-title textt"><%= gig.videoDate %></h4>
+                    <p class="card-description textt"><%= gig.videoTime %></p>
+                
+                    <div style = "">
+                    <button onclick="window.location = '/viewprofile/<%=gig.userWhoMadeVideo%>';" style="padding:8px; width:100%; color:white" type="button" class="card-title btn btn-lg btn-gradient-primary">View Profile</button>
+                    <button onclick="window.location = '/session/<%=gig.id%>/<%=user._id%>';"  style="padding:8px; width:100%;color:white" type="button" class="card-title btn btn-lg btn-gradient-primary">Start Session</button>
+                  </div>
+                  <% } else if (user.id == gig.userWhoMadeVideo){ %> 
+                    <div class="card-body text-center">
+                        <div class="nav-profile-text">
+                          <p class="mb-1 text-black"><%=gig.userWhoJoinVideoFirstName%> <%=gig.userWhoJoinVideoLastName%></p>
+                        </div>
+                        <h4 class="card-title textt"><%= gig.videoDate %></h4>
+                        <p class="card-description textt"><%= gig.videoTime %></p>
+
+                        <div style = "">
+                        <button onclick="window.location = '/viewprofile/<%=gig.userWhoJoinVideo%>';" style="padding:8px; width:100%; color:white" type="button" class="card-title btn btn-lg btn-gradient-primary">View Profile</button>
+                        <button onclick="window.location = '/session/<%=gig.id%>/<%=user._id%>';"  style="padding:8px; width:100%;color:white" type="button" class="card-title btn btn-lg btn-gradient-primary">Start Session</button>
+                      </div>
+                  <% } %> 
+                  </div>
+                </div>
+              </div> 
+            <% }) %> -->
+          </div> 
+          <!-- </form> -->
+      </div>
+    </div>

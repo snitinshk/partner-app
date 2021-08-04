@@ -1,0 +1,48 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class = "template-demo mt-8 mb-4">
+          <nav aria-label="breadcrumb" role="navigation">
+          <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
+            <li class="breadcrumb-item"><a href="/gigs">Your Treats</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Treat Info</li>
+          </ol>
+          </nav>
+        </div>
+        <h4 class="card-title">Treat Information</h4>
+        <p class="card-description">Find the details of the treat here</p>
+        <form class="forms-sample">
+          <div class="form-group">
+            <label for="exampleInputName1">Title</label>
+            <p class="card-description"><%= gig.title %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail3">Description</label>
+            <p class="card-description"><%= gig.description %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Price</label>
+            <p class="card-description">$<%= gig.price %></p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Timeline</label>
+            <p class="card-description"><%= gig.timeline %> days</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Status</label>
+            <div>
+                <%if(gig.status=="active"){%>
+                    <td><label class="badge badge-success">Active</label></td>
+                <%}else if(gig.status=="inactive"){%>
+                    <td><label class="badge badge-warning">Inactive</label></td> 
+                <%}%>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputCity1">Created Date</label>
+            <p class="card-description"><%= moment(gig.created).format('hh:mm A, DD MMMM YYYY') %> GMT +0000</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

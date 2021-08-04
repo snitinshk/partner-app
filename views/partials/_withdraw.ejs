@@ -1,0 +1,38 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+       
+        <h4 class="card-title">Withdraw Money</h4>
+        <p class="card-description"> You can withdraw your money from here. The settlement usually takes around 7 days.</p>
+        <form class="forms-sample" method = "post" action="/withdraw">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="exampleInputName1">Your Current Balance</label>
+             <p>$ <%=user.revenue%></p> 
+             <input id = "revenue" value = "<%=user.revenue%>" hidden>
+            </div>
+            <label for="exampleInputCity1">Price in USD</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-gradient-primary text-white">$</span>
+              </div>
+              <%if(user.revenue=="0"){%>
+              <input type="number" name='price'  min = "1" onkeydown="if(event.key==='.'){event.preventDefault();}" onpaste="let pasteData = event.clipboardData.getData('text'); if(pasteData){pasteData.replace(/[^0-9]*/g,'');} " id="withdrawamount" class="form-control" aria-label="Amount (to the nearest dollar)" required disabled>
+              <%}else{%>
+              <input type="number" name='price'  min = "1" onkeydown="if(event.key==='.'){event.preventDefault();}" onpaste="let pasteData = event.clipboardData.getData('text'); if(pasteData){pasteData.replace(/[^0-9]*/g,'');} "  id = "withdrawamount" class="form-control" aria-label="Amount (to the nearest dollar)" required>
+             <%}%>
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+            <%if(user.revenue=="0"){%>
+                <button style = "margin-top:20px" id="withdraw" type="submit" class="btn btn-gradient-primary mr-2" disabled>Submit</button>
+            <%}else{%>
+                <button style = "margin-top:20px" id="withdrawbutton" type="submit" class="btn btn-gradient-primary mr-2" disabled>Submit</button>
+            <%}%>
+          
+         
+          </form>
+      </div>
+    </div>
+  </div>

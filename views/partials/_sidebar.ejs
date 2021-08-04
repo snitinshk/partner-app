@@ -1,0 +1,65 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <!-- <li class="nav-item nav-profile">
+      <a href="#" class="nav-link">
+        <div class="nav-profile-image">
+          <%if(!user.profilepic){%>
+            <img src="/assets/images/defaultprofilepic.png" class="rounded-circle">
+           <%}else{%> 
+            <img src='/upload/influencers/<%=user.profilepic%>'  class="rounded-circle">
+            <%}%>
+          
+          <span class="login-status online"></span>
+         
+        <!-- </div>
+        <div class="nav-profile-text d-flex flex-column">
+          <span class="font-weight-bold mb-2"><%=user.firstname%> <%=user.lastname%></span>
+          
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>
+    </li>  -->
+        <!-- <li class="nav-item">      
+      <a class="nav-link" href="/">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li> -->
+        <li class="nav-item">
+            <%if(page=="partials/_orders"||page=="partials/_uploadorder"||page=="partials/_orderinfo"){%>
+                <a class="nav-link" href="../gigs">
+                    <%}else{%>
+                        <a class="nav-link" href="/gigs">
+                            <%}%>
+                                <span class="menu-title">Find a partner</span>
+                                <i class="mdi mdi mdi-account-convert menu-icon"></i>
+                        </a>
+        </li>
+        <li class="nav-item">
+            <%if(page=="partials/_orders"||page=="partials/_uploadorder"||page=="partials/_orderinfo"){%>
+                <a class="nav-link" href="../bookedsessions">
+                    <%}else{%>
+                        <a class="nav-link" href="/bookedsessions">
+                            <%}%>
+                                <span class="menu-title">Upcoming Sessions</span>
+                                <i class="mdi mdi-calendar menu-icon"></i>
+                        </a>
+        </li>
+        <li class="nav-item">
+            <%if(page=="partials/_orders"||page=="partials/_uploadorder"||page=="partials/_orderinfo"){%>
+                <a class="nav-link" href="../pendingsessions">
+                    <%}else{%>
+                        <a class="nav-link" href="/pendingsessions">
+                            <%}%>
+                                <span class="menu-title">Pending Confirmation</span>
+                                <i class="mdi mdi-calendar menu-icon"></i>
+                        </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/forum">
+                <span class="menu-title">Forum</span>
+                <i class="mdi mdi-calendar menu-icon"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
