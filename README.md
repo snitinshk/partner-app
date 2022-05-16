@@ -1,1 +1,1 @@
-# loyalfansapp
+# partner app
